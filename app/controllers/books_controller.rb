@@ -7,10 +7,19 @@ class BooksController < ApplicationController
 
   def new
     # your code here
+    render :new
   end
 
   def create
     # your code here
+    book = Book.new(book_params)
+
+    if book.save
+      redirect_to books_url
+    else
+      flash.now[:errors] = book.errors.full_messages
+      render :new
+    end
   end
 
   def destroy
